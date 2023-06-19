@@ -6,7 +6,7 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from backend.serializers.auth_serializers import PersonSerializer, AccountSerializer, \
-    LogInTokenObtainPairSerializer, UpdateAccountSerializer
+    LogInTokenObtainPairSerializer
 from backend.models import Person
 from backend.utility_file import PersonType
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -21,7 +21,7 @@ class CreateAccountAPIView(CreateAPIView):
 
 
 class UpdateAccountAPIView(RetrieveUpdateAPIView):
-    serializer_class = UpdateAccountSerializer
+    serializer_class = AccountSerializer
     lookup_field = 'person_id'
     permission_classes = [IsAuthenticated]
 

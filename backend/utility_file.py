@@ -13,9 +13,9 @@ class FileType(enum.Enum):
 
 
 def validate_pdf_extension(value):
-    # check the file extension is in pdf format or not
+    # check the file extension is pdf or not
     file_extension = os.path.splitext(value.name)[1]
-    if file_extension == FileType.PDF.value:
+    if file_extension in FileType.PDF.value:
         return file_extension
     else:
         raise ValueError("Invalid file type. Only PDF file accepted.")
@@ -31,13 +31,13 @@ def validate_image_extension(value) -> str:
 
 
 def new_filename(file, title: str):
-    # Returns a file with new name set by title of pdf book
+    # Here, file may be ImageField or FileField object. Returns a file with new name set by title of pdf book.
     file_extension = os.path.splitext(file.name)[1]
     file.name = title + file_extension
     return file
 
 
 def delete_old_path(path: str) -> None:
-    # function delete given path from the system
+    # function delete given path of old file from the system. It helps to update the file
     if os.path.exists(path):
         os.remove(path)

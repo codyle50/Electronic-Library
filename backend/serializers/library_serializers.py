@@ -1,11 +1,11 @@
 from rest_framework import serializers
 from backend.models import PDFBook, Department, CollectionHistory
-from backend.utility_file import new_filename
-
+from backend.utility_file import new_filename, PersonType
 from backend.utility_file import validate_pdf_extension, validate_image_extension, delete_old_path
 
 
 class DepartmentSerializer(serializers.ModelSerializer):
+    # create and update a department by librarian
     person = serializers.PrimaryKeyRelatedField(read_only=True, default=serializers.CurrentUserDefault())
 
     class Meta:
@@ -16,6 +16,13 @@ class DepartmentSerializer(serializers.ModelSerializer):
         instance.save(**validated_data)
         return instance
 
+    def validate_person(self, value):
+        if value.role in PersonType.LIBRARIAN.value:
+            return value
+        else:
+            raise serializers.ValidationError(
+                {"person": "Your role is not a librarian. Only librarian can create department."})
+
     def create(self, validated_data):
         department = Department(**validated_data)
         department.save()
@@ -23,30 +30,34 @@ class DepartmentSerializer(serializers.ModelSerializer):
 
 
 class PDFBookSerializer(serializers.ModelSerializer):
+    # create and update PDFBook by librarian with valid data
     person = serializers.PrimaryKeyRelatedField(read_only=True, default=serializers.CurrentUserDefault())
     department = serializers.PrimaryKeyRelatedField(read_only=True)
 
     class Meta:
         model = PDFBook
-        fields = ['person', 'title', 'image', 'author_name', 'file', 'department']
+        fields = ['id', 'person', 'title', 'image', 'author_name', 'file', 'department']
 
     def validate(self, attrs):
-        if validate_pdf_extension(attrs['file']) and validate_image_extension(attrs['image']):
+        if validate_pdf_extension(attrs['file']) or validate_image_extension(attrs['image']):
             return attrs
         else:
-            serializers.ValidationError("Invalid file passed.")
+            raise serializers.ValidationError("Invalid file passed.")
+
+    def validate_person(self, value):
+        if value.role in PersonType.LIBRARIAN.value:
+            return value
+        else:
+            raise serializers.ValidationError(
+                {"person": "Your role is not a librarian. Only librarian can create department."})
 
     def update(self, instance, validated_data):
-        instance.title = validated_data.get('title', instance.title)
         # check if new image or file are uploaded, then delete old image or file path.
-        if instance.image != validated_data.get('image', instance.image):
-            delete_old_path(instance.image.path)
-            instance.image = new_filename(validated_data.get('image', instance.image), instance.title)
-        if instance.file != validated_data.get('file', instance.file):
-            delete_old_path(instance.file.path)
-            instance.file = new_filename(validated_data.get('file', instance.file), instance.title)
-        instance.author_name = validated_data.get('author_name', instance.author_name)
-        instance.save()
+        delete_old_path(instance.image.path)
+        delete_old_path(instance.file.path)
+        validated_data['image'] = new_filename(validated_data['image'], validated_data['title'])
+        validated_data['file'] = new_filename(validated_data['file'], validated_data['title'])
+        instance.save(**validated_data)
         return instance
 
     def create(self, validated_data):
@@ -58,6 +69,7 @@ class PDFBookSerializer(serializers.ModelSerializer):
 
 
 class CollectionHistorySerializer(serializers.ModelSerializer):
+    # History for customer who will download a pdf book file
     person = serializers.PrimaryKeyRelatedField(read_only=True, default=serializers.CurrentUserDefault())
     book = serializers.PrimaryKeyRelatedField(read_only=True)
 

@@ -1,3 +1,5 @@
+import os
+
 from backend.utility_file import validate_pdf_extension, validate_image_extension
 from django.contrib.auth.validators import ASCIIUsernameValidator
 from django.db import models
@@ -59,6 +61,11 @@ class PDFBook(models.Model):
 
     def __str__(self):
         return f'{self.id}. {self.department.name}- {self.title}'
+
+    def delete(self, *args, **kwargs):
+        os.remove(self.image.path)
+        os.remove(self.file.path)
+        super(PDFBook, self).delete(*args, **kwargs)
 
 
 class CollectionHistory(models.Model):
