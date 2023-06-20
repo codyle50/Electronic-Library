@@ -1,38 +1,43 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@500&display=swap');
+.container {
+  margin-top: 1%;
+}
+.nav-link{
+  font-weight: 600;
+  font-size: 14px;
+  color: #2d3b70;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.navbar-brand{
+  color: #2d3b70;
+  font-weight: 600;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.homeDiv {
+  background-color: rgb(234, 250, 250);
+  color: #2d3b70;
+  margin: 4% auto;
+  width: 90%;
+  padding: 40px 20px;
+  border-radius: 10px;
+  box-shadow: 1px 2px 2px 3px rgb(82, 97, 133);
+}
+.center-text {
+  color: #1a9391;
+  font-size: 18px;
+  word-spacing: 0.2em;
+  letter-spacing: 0;
+  font-family: 'Yanone Kaffeesatz', sans-serif;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.about-cover{
+  width: 80%;
+  margin: 3% auto;
+  padding-bottom: 2%;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+@media only screen and (max-width: 768px){
+  .homeDiv{
+    width: 100%;
   }
 }

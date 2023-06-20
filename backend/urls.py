@@ -12,7 +12,7 @@ urlpatterns = [
     path('customers/', CustomerListAPIView.as_view()),
     path('token/', LogInTokenObtainPairView.as_view()),
     path('token/refresh/', TokenRefreshView.as_view()),
-    path('account/', CreateAccountAPIView.as_view()),
+    path('create-account/', CreateAccountAPIView.as_view()),
     path('account-update/<int:person_id>/', UpdateAccountAPIView.as_view()),
     path('books/<int:pdf_book_id>/', PDFBookRetrieveUpdateDestroyViewSet.as_view()),
     path('departments/<int:department_id>/create-book/', CreatePDFBookViewSet.as_view()),

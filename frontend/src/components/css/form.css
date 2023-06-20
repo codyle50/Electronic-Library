@@ -1,0 +1,42 @@
+.form-cover{
+  padding-bottom: 2%;
+  height: auto;
+  margin-top: 5%;
+}
+
+.form-page{
+  width: 90%;
+  padding: 20px 30px;
+  margin: auto;
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px 2px rgb(82, 97, 133);
+}
+.login-form{
+  width: 60%;
+  padding: 2% 6%;
+}
+  
+.buttonDiv{
+  margin: 3% 0;
+  text-align: center;
+}
+
+.form-page h1{
+  text-align: center;
+  color: #2d3b70;
+  text-transform: uppercase;
+  font-family: 'Crimson Text', serif;
+  font-weight: bold;
+  margin-bottom: 3%;
+}
+
+
+@media only screen and (max-width: 768px) {
+  .form-page{
+    width: 100%;
+    padding: 10px 20px;
+  }
+  .form-cover{
+    width: 100%;
+  }
+}
