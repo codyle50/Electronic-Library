@@ -1,6 +1,7 @@
 from rest_framework import status
 
-from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateAPIView, get_object_or_404
+from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateAPIView, get_object_or_404, \
+    RetrieveAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -18,6 +19,17 @@ class CreateAccountAPIView(CreateAPIView):
     # create a new person's account
     serializer_class = AccountSerializer
     permission_classes = [AllowAny, ]
+
+
+class GetAccountDetailAPIView(RetrieveAPIView):
+    # get person's detail
+    serializer_class = AccountSerializer
+    permission_classes = [IsAuthenticated]
+    lookup_field = 'person_id'
+
+    def get_object(self):
+        person_id = self.kwargs['person_id']
+        return get_object_or_404(Person, id=person_id)
 
 
 class UpdateAccountAPIView(RetrieveUpdateAPIView):

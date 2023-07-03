@@ -1,13 +1,57 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: 'Poppins', sans-serif;
+  background-color: #d4faf9;
+  color: rgb(67, 94, 139);
+  font-weight: 400;
+}
+html{
+  word-spacing: 0.3em;
+  font-size: 16px;
+  height: 100%;
+  box-sizing: border-box;
 }
 
+#root{
+  width: 80%;
+  margin: auto;
+  height: auto;
+}
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas,
     monospace;
+}
+
+.lightButton{
+  background-color: azure;
+  color: #2d3b70;
+  font-weight: 500;
+  text-transform: capitalize;
+  border: 2px solid #2d3b70;
+  box-shadow: 2px 4px #2d3b70;
+
+}
+
+.darkButton{
+  background-color: #2d3b70;
+  color: azure;
+  font-weight: 500;
+  text-transform: capitalize;
+  box-shadow: 2px 4px rgb(167, 193, 235);
+}
+
+.lightButton:hover, .lightButton:active, .lightButton:visited{
+  background-color: #2d3b70;
+  color: azure;
+  box-shadow: 2px 4px rgb(167, 193, 235);
+}
+
+.darkButton:hover, .darkButton:active, .darkButton:active:after{
+  background-color: azure;
+  color:#2d3b70;
+  border: 2px solid #2d3b70;
+  box-shadow: 2px 4px #2d3b70;
 }

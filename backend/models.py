@@ -56,6 +56,7 @@ class PDFBook(models.Model):
     image = models.ImageField(upload_to=store_file_path, validators=[validate_image_extension])
     author_name = models.CharField(max_length=500)
     file = models.FileField(upload_to=store_file_path, validators=[validate_pdf_extension])
+    description = models.CharField(max_length=5000)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
     upload_date = models.DateTimeField(auto_now_add=True)
 

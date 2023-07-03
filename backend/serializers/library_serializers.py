@@ -36,7 +36,7 @@ class PDFBookSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PDFBook
-        fields = ['id', 'person', 'title', 'image', 'author_name', 'file', 'department']
+        fields = ['id', 'person', 'title', 'image', 'author_name', 'file','description', 'department']
 
     def validate(self, attrs):
         if validate_pdf_extension(attrs['file']) or validate_image_extension(attrs['image']):
