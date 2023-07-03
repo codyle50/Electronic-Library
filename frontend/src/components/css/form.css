@@ -9,7 +9,7 @@
   padding: 20px 30px;
   margin: auto;
   border-radius: 10px;
-  box-shadow: 2px 2px 2px 2px rgb(82, 97, 133);
+  box-shadow: 1px 1px 1px 2px rgb(82, 97, 133);
 }
 .login-form{
   width: 60%;
@@ -17,8 +17,11 @@
 }
   
 .buttonDiv{
-  margin: 3% 0;
   text-align: center;
+}
+
+.buttonDiv .darkButton{
+  margin-top: 10px;
 }
 
 .form-page h1{

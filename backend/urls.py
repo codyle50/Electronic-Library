@@ -2,7 +2,7 @@ from django.urls import path
 from rest_framework_simplejwt.views import TokenRefreshView
 
 from backend.views.auth_views import CreateAccountAPIView, LibrarianListAPIView, LogInTokenObtainPairView, LogoutView, \
-    CustomerListAPIView, UpdateAccountAPIView
+    CustomerListAPIView, UpdateAccountAPIView, GetAccountDetailAPIView
 from backend.views.library_views import CreateDepartmentViewSet, CreatePDFBookViewSet, \
     PDFBookRetrieveUpdateDestroyViewSet, DepartmentRetrieveUpdateDestroyViewSet, PDFBookListViewSet, \
     DepartmentListViewSet, DownloadHistoryViewSet
@@ -12,6 +12,7 @@ urlpatterns = [
     path('customers/', CustomerListAPIView.as_view()),
     path('token/', LogInTokenObtainPairView.as_view()),
     path('token/refresh/', TokenRefreshView.as_view()),
+    path('account-detail/<int:person_id>/', GetAccountDetailAPIView.as_view()),
     path('create-account/', CreateAccountAPIView.as_view()),
     path('account-update/<int:person_id>/', UpdateAccountAPIView.as_view()),
     path('books/<int:pdf_book_id>/', PDFBookRetrieveUpdateDestroyViewSet.as_view()),

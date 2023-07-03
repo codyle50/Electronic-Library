@@ -1,0 +1,35 @@
+.profileDiv{
+    height: 250px;
+    border-radius: 100%;
+    padding: 0 10px;
+    margin-bottom: 40px;
+}
+
+.profileDiv input[type='file'] {
+    display: none;
+}
+
+.profile-pic{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: relative;
+}
+
+.profileDiv form{
+    text-align: center;
+    background-color: #e1f8f7;
+    margin-top: 5px;
+}
+
+.profileDiv form button{
+    width: 100%;
+    background-color: #4a5b97;
+    box-shadow: none;
+}
+
+.profile-info{
+    border-left: 2px groove #2d3b70;
+    margin-left: 20px;
+    padding: 10px 40px;
+}

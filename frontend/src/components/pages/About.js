@@ -1,6 +1,12 @@
-import React from 'react'
+import React, {useEffect} from 'react';
+import '../css/all_pages.css';
 
 function About() {
+
+  useEffect(()=>{
+    document.title ="About Us | Library"
+  }, [])
+
   return (
     <div className='about-cover'>
       <hr/>

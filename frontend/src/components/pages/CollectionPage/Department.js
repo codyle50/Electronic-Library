@@ -1,16 +1,9 @@
-import React, {useEffect, useState, useContext} from 'react';
+import React, {useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-import Department from './CollectionPage/Department';
-import '../css/all_pages.css';
 
 
-function Collection(props) {
-  console.log(props.userId)
-  
-  useEffect(()=>{
-    document.title ="Collection | Library";
-  },[])
+function Department() {
 
   const [show, setShow] = useState(false);
   const [department, setDepartment] = useState({
@@ -19,16 +12,23 @@ function Collection(props) {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  
+  const handleDelete = () => {
+    window.confirm("Are you sure to delete your department");
+  }
 
   return (
-    <div>
-     <h5 className='departmentName'>Create your collection of departments - <button className='btn darkButton' onClick={handleShow}>Create</button> </h5>
-     
-     {/* here is modal for create a new department */}
-     <Modal show={show} onHide={handleClose}>
+    <>
+    <small className='department-box'>Books: {0}
+      <h6><i className="fa-solid fa-pen-to-square" id='Edit' onClick={handleShow}>
+        </i> <i className="fa-solid fa-trash-can" id='Delete' onClick={handleDelete}></i>
+      </h6> <hr/>
+      <a href="department/books"> This is my department</a> 
+    </small>
+
+    {/* here is modal for update department */}
+    <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton className='modal-department'>
-          <Modal.Title>Create a New Department</Modal.Title>
+          <Modal.Title>Update Department's Name</Modal.Title>
         </Modal.Header>
         <Modal.Body className='modal-department'>
           <Form>
@@ -45,16 +45,12 @@ function Collection(props) {
             Close
           </button>
           <button className='btn darkButton' onClick={handleClose}>
-            create
+            update
           </button>
         </Modal.Footer>
       </Modal>
-
-      <div className='departmentDiv'>
-        <Department/>
-      </div>
-    </div>
+    </>
   )
 }
 
-export default Collection;
+export default Department;

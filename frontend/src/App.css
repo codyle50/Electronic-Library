@@ -13,31 +13,3 @@
   font-weight: 600;
 }
 
-.homeDiv {
-  background-color: rgb(234, 250, 250);
-  color: #2d3b70;
-  margin: 4% auto;
-  width: 90%;
-  padding: 40px 20px;
-  border-radius: 10px;
-  box-shadow: 1px 2px 2px 3px rgb(82, 97, 133);
-}
-.center-text {
-  color: #1a9391;
-  font-size: 18px;
-  word-spacing: 0.2em;
-  letter-spacing: 0;
-  font-family: 'Yanone Kaffeesatz', sans-serif;
-}
-
-.about-cover{
-  width: 80%;
-  margin: 3% auto;
-  padding-bottom: 2%;
-}
-
-@media only screen and (max-width: 768px){
-  .homeDiv{
-    width: 100%;
-  }
-}

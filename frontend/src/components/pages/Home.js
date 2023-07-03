@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import { Outlet, Link } from "react-router-dom";
+import '../css/all_pages.css'
 
 function Home() {
   return (
@@ -15,7 +16,6 @@ function Home() {
           accurate data regarding any type of book, thereby saving a lot of time and effort.
         </p>
         <p>
-          <Button className='darkButton'>See More</Button> &nbsp;
           <Link to="/login"><Button className='darkButton'>Log In</Button></Link>
         </p>
       </div>
