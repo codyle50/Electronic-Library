@@ -1,0 +1,55 @@
+.profileDiv{
+    margin: 0 5px;
+    height: 250px;
+    position: relative;
+}
+.profile-pic{
+    width: 100%;
+    border-radius: 5px;
+    height: 100%;
+    object-fit: cover;
+
+}
+.profileDiv form{
+    width: 100%;
+    margin: auto;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+.profileDiv form button {
+    width: 100%;
+    margin-top: 10px;
+}
+#ProfileFile::-webkit-file-upload-button {
+    width: 15%;
+    background: transparent;
+    border: none;
+    visibility: hidden;
+}
+#ProfileFile {
+    width: 100%;
+    border: 1px groove #2d3b70;
+    border-radius: 10px;
+}
+#ProfileFile::file-selector-button{
+    margin-right: 20px;
+    
+    
+    cursor: pointer;
+    transition: background .2s ease-in-out;
+}
+#ProfileFile::before{
+    display: inline-block;
+}
+
+.profile-info{
+    border-left: 2px groove #2d3b70;
+    margin-left: 20px;
+    padding: 10px 40px;
+}
+#SuccessProfile{
+    background-color: rgba(169, 250, 208, 0.836);
+    padding: 10px;
+    border-radius: 8px;
+    display: none;
+}

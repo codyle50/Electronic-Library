@@ -1,0 +1,188 @@
+.homeDiv {
+    margin: 4% auto;
+    width: 90%;
+    padding: 40px 20px;
+    border-radius: 10px;
+}
+.introduction{
+    background-color: rgb(234, 250, 250);
+    padding: 20px;
+    border-radius: 10px;
+}
+.e-librayPic{
+    position: relative;
+    border-radius: 20px;
+}
+
+.homeImage{
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    border-radius: 20px;
+    box-shadow: 1px 2px 2px 3px rgb(82, 97, 133);
+}
+.center-text {
+color: #1a9391;
+font-size: 18px;
+word-spacing: 0.2em;
+letter-spacing: 0;
+font-family: 'Yanone Kaffeesatz', sans-serif;
+}
+
+.about-cover{
+width: 80%;
+margin: 3% auto;
+padding-bottom: 2%;
+}
+
+.modal-department, .modal-pdfbook{
+background-color: #d4faf9;
+}
+.departmentName {
+    background-color: rgb(185, 242, 247);
+    padding: 30px 0;
+    text-align: center;
+    border-radius: 20px;
+}
+.departmentDiv{
+    margin-top: 3%;
+    height: auto;
+    width: 100%;
+    display: flex;
+}
+
+.department-box {
+    padding: 8px 15px;
+    font-size: 18px;
+    border-radius: 10px;
+    margin-left: 50px;
+    margin-bottom: 30px;
+    box-shadow: 1px 2px 2px 3px rgb(91, 106, 142);
+}
+.department-box h6 {
+    text-align: end;
+    font-size: 14px;
+}
+.modal-content{
+    border-radius: 10px;
+}
+.departButtons {
+    text-align: end;
+    border: 1px solid red;
+}
+.departButtons button{
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+#Edit:hover{
+    color: green;
+}
+ #Delete:hover{
+    color: red;
+}
+
+.department-box a {
+    text-decoration: none;
+    color: #2d3b70;
+    font-weight: 500;
+}
+.department-box a:hover{
+    color: rgb(112, 140, 187);
+}
+.buttonsDiv{
+    margin-top: 25px;
+}
+.uploadPdf{
+    font-size: 16px;
+    margin-left: 20%;
+}
+
+.uploadPdf button{
+    font-size: 14px;
+}
+.booklistDiv {
+    border-bottom: 3px groove rgb(25, 69, 120);
+    height: auto;
+    margin-bottom: 5%;
+}
+.bookRow{
+    height: auto;
+    padding: 10px 20px;
+    margin-top: 2%;
+    
+}
+
+.bookCoverDiv{
+    height: 220px;
+}
+.book-cover{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: relative;
+}
+
+.book-info{
+    padding: 0px;
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+.book-info li {
+    list-style-type: none;
+    font-weight: 600;
+    margin-top: 8px;
+}
+
+.book-info li button {
+    font-size: 12px;
+    margin-top: 4px;
+}
+.book-info i {
+    margin-right: 8px;
+}
+
+.book-info p {
+    font-weight: lighter;
+}
+
+#PDFBox {
+    width: 100%;
+    height: 100%;
+}
+.bookDetailDiv {
+    margin-top: 3%;
+    font-size: 14px;
+}
+
+.bookDetailDiv h3, .bookCollectHead {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 4px groove rgb(25, 69, 120);
+
+}
+.bookImageCol img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: relative;
+    border-radius: 10px;
+}
+
+.bookInfoCol {
+    padding: 10px;
+    
+}
+
+.bookDescript{
+    margin-top: 30px;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 1px 2px 2px 3px rgb(153, 179, 215);
+}
+@media only screen and (max-width: 768px){
+.homeDiv{
+    width: 100%;
+}
+}
