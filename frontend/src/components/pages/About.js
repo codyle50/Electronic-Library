@@ -15,25 +15,23 @@ function About() {
       librarian to maintain the database of new books and the books that are borrowed by members along with their 
       due dates. This system completely automates all your library’s activities. A library management system is 
       used to maintain library records. It tracks the records of the number of books in the library, how many books 
-      are issued, or how many books have been returned or renewed or late fine charges, etc. You can find books in 
-      an instant, issue/reissue books quickly, and manage all the data efficiently and orderly using this system. 
-      The purpose of a library management system is to provide instant and accurate data regarding any type of book, 
-      thereby saving a lot of time and effort.
+      are created, or how many books have ratings etc. The purpose of a library management system is to provide 
+      instant and accurate data regarding any type of book, thereby saving a lot of time and effort.
       </p>
       <p>
-        In order to maintain library management software, we will have the following set of components. These 
+        In order to maintain E-library app, we will have the following set of components. These 
         components are efficient to manage library operations accurately.
       </p>
       <ul>
         <li> <h6><b>Login Section:</b> User create account with role as:</h6>
             <p>
-                <b>Librarian:</b> the administrators can access the entire functionality of the system via this 
-                component. The admin can maintain the records and track them as per necessity. Also, the admin can add or
-                remove entries into the system respectively.
+                <b>Librarian:</b> the user who can access the entire functionality of the system via this 
+                component. He/She can maintain e-books and update them as per necessity. Also, he/she can add or
+                remove e-books into the system respectively.
             </p>
             <p>
-                <b>Customer:</b> The students who want to access library materials, need to do registration first. The 
-                registration allows for maintaining records accurately. After registering, they can check out and check 
+                <b>Customer:</b> The user who want to access library materials, need to do registration first. The 
+                registration allows for read and download e-books freely. After registering, they can check out and check 
                 in the library material.
             </p>
         </li>

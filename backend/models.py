@@ -36,6 +36,15 @@ class Person(AbstractUser):
         return f'{self.id}. {self.first_name} {self.last_name}'
 
 
+class ProfileImage(models.Model):
+    def store_profile_path(self, filename):
+        # File path is MEDIA_ROOT/<person>/<filename>
+        return "{}/{}".format(self.person, filename)
+    person =models.ForeignKey(Person, on_delete=models.CASCADE)
+    image =models.ImageField(upload_to=store_profile_path, validators=[validate_image_extension],blank=True, null=True)
+    image_created = models.DateTimeField(auto_now_add=True)
+
+
 class Department(models.Model):
     name = models.CharField(max_length=500, unique=True)
     person = models.ForeignKey(Person, on_delete=models.CASCADE)
@@ -52,11 +61,11 @@ class PDFBook(models.Model):
         return "{}/{}/{}".format(self.person, self.department.name, filename)
 
     person = models.ForeignKey(Person, on_delete=models.CASCADE)
-    title = models.CharField(max_length=1500, unique=True)
-    image = models.ImageField(upload_to=store_file_path, validators=[validate_image_extension])
-    author_name = models.CharField(max_length=500)
-    file = models.FileField(upload_to=store_file_path, validators=[validate_pdf_extension])
-    description = models.CharField(max_length=5000)
+    title = models.CharField(max_length=1500, unique=True, blank=True)
+    image = models.ImageField(upload_to=store_file_path, validators=[validate_image_extension],blank=True)
+    author_name = models.CharField(max_length=500, blank=True)
+    file = models.FileField(upload_to=store_file_path, validators=[validate_pdf_extension], blank=True)
+    description = models.CharField(max_length=5000, blank=True)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
     upload_date = models.DateTimeField(auto_now_add=True)
 

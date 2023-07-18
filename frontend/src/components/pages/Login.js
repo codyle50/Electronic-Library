@@ -6,7 +6,7 @@ import AuthContext from '../context/AuthContext';
 
 
 function Login() {
-  let {loginUser} = useContext(AuthContext)
+  let { loginUser } = useContext(AuthContext)
   
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("")

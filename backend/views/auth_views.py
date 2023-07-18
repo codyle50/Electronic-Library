@@ -7,9 +7,9 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from backend.serializers.auth_serializers import PersonSerializer, AccountSerializer, \
-    LogInTokenObtainPairSerializer
-from backend.models import Person
-from backend.utility_file import PersonType
+    LogInTokenObtainPairSerializer, UpdateAccountSerializer, ProfileImageSerializer
+from backend.models import Person, ProfileImage
+from backend.utility_file import PersonType, new_profile_image_name
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.db.models import Q
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -29,11 +29,12 @@ class GetAccountDetailAPIView(RetrieveAPIView):
 
     def get_object(self):
         person_id = self.kwargs['person_id']
+        print(person_id)
         return get_object_or_404(Person, id=person_id)
 
 
 class UpdateAccountAPIView(RetrieveUpdateAPIView):
-    serializer_class = AccountSerializer
+    serializer_class = UpdateAccountSerializer
     lookup_field = 'person_id'
     permission_classes = [IsAuthenticated]
 
@@ -68,11 +69,29 @@ class LogoutView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
-
         try:
             refresh_token = request.data["refresh_token"]
             token = RefreshToken(refresh_token)
             token.blacklist()
             return Response(status=status.HTTP_205_RESET_CONTENT)
-        except Exception as e:
+        except Exception:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+class CreateProfileImageAPIView(CreateAPIView):
+    serializer_class = ProfileImageSerializer
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        user =self.request.user
+        print(self.request.FILES)
+        image_file = self.request.FILES['image']
+        new_image_file = new_profile_image_name(image_file, user.first_name, user.last_name)
+        serializer.save(person=user, image=new_image_file)
+
+class GetChangeProfileImageAPIView(RetrieveUpdateAPIView):
+    serializer_class = ProfileImageSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        return get_object_or_404(ProfileImage, person=self.request.user)

@@ -1,11 +1,12 @@
-from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateDestroyAPIView, get_object_or_404
-from backend.models import Department, PDFBook, CollectionHistory
-from backend.serializers.library_serializers import DepartmentSerializer, PDFBookSerializer, \
-    CollectionHistorySerializer
+from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateAPIView, get_object_or_404, \
+    DestroyAPIView
+from backend.models import Department, PDFBook
+from backend.serializers.library_serializers import DepartmentSerializer, PDFBookSerializer
 from rest_framework.permissions import IsAuthenticated
 
 
-class DepartmentRetrieveUpdateDestroyViewSet(RetrieveUpdateDestroyAPIView):
+# Update Department only by librarian
+class UpdateDepartmentAPIView(RetrieveUpdateAPIView):
     serializer_class = DepartmentSerializer
     permission_classes = [IsAuthenticated, ]
     lookup_field = 'department_id'
@@ -15,6 +16,17 @@ class DepartmentRetrieveUpdateDestroyViewSet(RetrieveUpdateDestroyAPIView):
         return get_object_or_404(Department, id=department_id)
 
 
+# Delete Department only by librarian
+class DeleteDepartmentAPIView(DestroyAPIView):
+    serializer_class = DepartmentSerializer
+    permission_classes = [IsAuthenticated, ]
+    lookup_field = 'id'
+    
+    def get_queryset(self):
+        return Department.objects.filter(id= self.kwargs['id'], person = self.request.user.id)
+    
+
+# Create Department only by librarian
 class CreateDepartmentViewSet(CreateAPIView):
     serializer_class = DepartmentSerializer
     permission_classes = [IsAuthenticated]
@@ -23,18 +35,42 @@ class CreateDepartmentViewSet(CreateAPIView):
         serializer.save(person=self.request.user)
 
 
+# get a list of all departments for customer
 class DepartmentListViewSet(ListAPIView):
-    queryset = Department.objects.all()
+    permission_classes = [IsAuthenticated]
     serializer_class = DepartmentSerializer
+    queryset =Department.objects.all()
 
 
-class PDFBookListViewSet(ListAPIView):
-    queryset = PDFBook.objects.all()
+# get a list of only those Departments which are created by librarian
+class LibrarianDepartmentListViewSet(ListAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = DepartmentSerializer
+    
+    def get_queryset(self):
+        return Department.objects.filter(person = self.request.user)
+
+# get a list of only those PDFBooks which are created by librarian
+class LibrarianPDFBookListViewSet(ListAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = PDFBookSerializer
+    
+    def get_queryset(self):
+        return PDFBook.objects.filter(person = self.request.user)
+
+# get PDFBook list for customer
+class PDFBookListViewSet(ListAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = PDFBookSerializer
+    lookup_field = 'department_id'
+
+    def get_queryset(self):
+        department = Department.objects.get(id=self.kwargs["department_id"])
+        return PDFBook.objects.filter(department=department)
 
 
-class PDFBookRetrieveUpdateDestroyViewSet(RetrieveUpdateDestroyAPIView):
+# update PDFBook only by librarian
+class UpdatePDFBookAPIView(RetrieveUpdateAPIView):
     serializer_class = PDFBookSerializer
     permission_classes = [IsAuthenticated]
     lookup_field = 'pdf_book_id'
@@ -42,9 +78,10 @@ class PDFBookRetrieveUpdateDestroyViewSet(RetrieveUpdateDestroyAPIView):
     def get_object(self):
         pdf_book_id = self.kwargs["pdf_book_id"]
         return get_object_or_404(PDFBook, id=pdf_book_id)
+    
 
-
-class CreatePDFBookViewSet(CreateAPIView):
+# Create PDFBook only by librarian
+class CreatePDFBookAPIView(CreateAPIView):
     serializer_class = PDFBookSerializer
     permission_classes = [IsAuthenticated]
     lookup_field = 'department_id'
@@ -53,13 +90,3 @@ class CreatePDFBookViewSet(CreateAPIView):
         department_id = Department.objects.get(id=self.kwargs['department_id'])
         serializer.save(person=self.request.user, department=department_id)
 
-
-class DownloadHistoryViewSet(ListAPIView, CreateAPIView):
-    permission_classes = [IsAuthenticated]
-    queryset = CollectionHistory.objects.all()
-    serializer_class = CollectionHistorySerializer
-    lookup_field = 'pdf_book_id'
-
-    def perform_create(self, serializer):
-        book_id = PDFBook.objects.get(id=self.kwargs["pdf_book_id"])
-        serializer.save(person=self.request.user, book=book_id)
