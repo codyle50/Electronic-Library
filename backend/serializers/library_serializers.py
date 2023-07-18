@@ -10,11 +10,7 @@ class DepartmentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Department
-        fields = ['person', 'name']
-
-    def update(self, instance, validated_data):
-        instance.save(**validated_data)
-        return instance
+        fields = ['id', 'person', 'name']
 
     def validate_person(self, value):
         if value.role in PersonType.LIBRARIAN.value:
@@ -33,16 +29,17 @@ class PDFBookSerializer(serializers.ModelSerializer):
     # create and update PDFBook by librarian with valid data
     person = serializers.PrimaryKeyRelatedField(read_only=True, default=serializers.CurrentUserDefault())
     department = serializers.PrimaryKeyRelatedField(read_only=True)
-
+    
     class Meta:
         model = PDFBook
         fields = ['id', 'person', 'title', 'image', 'author_name', 'file','description', 'department']
 
     def validate(self, attrs):
-        if validate_pdf_extension(attrs['file']) or validate_image_extension(attrs['image']):
-            return attrs
-        else:
-            raise serializers.ValidationError("Invalid file passed.")
+        if attrs['file'] or attrs['image']:
+            if validate_pdf_extension(attrs['file']) or validate_image_extension(attrs['image']):
+                return attrs
+            else:
+                raise serializers.ValidationError("Invalid file passed.")
 
     def validate_person(self, value):
         if value.role in PersonType.LIBRARIAN.value:
@@ -53,11 +50,19 @@ class PDFBookSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         # check if new image or file are uploaded, then delete old image or file path.
-        delete_old_path(instance.image.path)
-        delete_old_path(instance.file.path)
-        validated_data['image'] = new_filename(validated_data['image'], validated_data['title'])
-        validated_data['file'] = new_filename(validated_data['file'], validated_data['title'])
-        instance.save(**validated_data)
+        instance.title = validated_data['title']
+        if validated_data['file']:
+            delete_old_path(instance.file.path)
+            validated_data['file'] = new_filename(validated_data['file'], validated_data['title'])
+            instance.file = validated_data['file']
+        if validated_data['image']:
+            delete_old_path(instance.image.path)
+            validated_data['image'] = new_filename(validated_data['image'], validated_data['title'])
+            instance.image = validated_data['image']
+        instance.description =validated_data['description']
+        instance.author_name =validated_data['author_name']
+        instance.save()
+        print(instance.title)
         return instance
 
     def create(self, validated_data):

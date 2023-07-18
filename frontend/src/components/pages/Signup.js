@@ -3,24 +3,38 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import '../css/form.css';
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { base_url } from '../../App';
+import {Link} from "react-router-dom";
 
 
 function Signup() {
     const [data, setData] = useState({
-        "first_name":"",
-        "last_name": "",
-        "email": "",
-        "username": "",
-        "password1": "",
-        "password2": "",
-        "role": "",
-        "highest_qualification": "",
-        "store_name": ""
+        first_name:"",
+        last_name: "",
+        email: "",
+        username: "",
+        password1: "",
+        password2: "",
+        role: "",
+        highest_qualification: "",
+        store_name: ""
     })
 
     useEffect(()=>{
         document.title ="SignUp | Library"
       }, [])
+    
+      const handleSubmit =(event)=> {
+        event.preventDefault()
+        axios.post(base_url + 'create-account/', data, 
+        {headers: {'Content-Type': 'application/json'}}, {withCredentials: true})
+        .then(response => {
+            console.log(response.status)
+            window.location.href = '/';
+         })
+        .catch(error => {console.log(error)});
+    }
     
 
     const handleChange = (event) => {
@@ -124,9 +138,10 @@ function Signup() {
             </Row>
 
         <div className='buttonDiv'>
-            <button className='btn darkButton' type="submit">
+            <button className='btn darkButton' type="submit" onClick={handleSubmit}>
                 Submit
-            </button>
+            </button> &nbsp;
+            <Link to="/login/" className='btn darkButton'><i className="fa-solid fa-circle-arrow-right"></i> Log In</Link>
         </div>
     </Form>
 
@@ -135,4 +150,4 @@ function Signup() {
   );
 }
 
-export default Signup;
+export default React.memo(Signup);

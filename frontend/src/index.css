@@ -43,7 +43,7 @@ code {
   box-shadow: 2px 4px rgb(167, 193, 235);
 }
 
-.lightButton:hover, .lightButton:active, .lightButton:visited{
+.lightButton:hover, .lightButton:active, .darkButton:active:after{
   background-color: #2d3b70;
   color: azure;
   box-shadow: 2px 4px rgb(167, 193, 235);

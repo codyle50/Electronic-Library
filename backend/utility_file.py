@@ -36,6 +36,12 @@ def new_filename(file, title: str):
     file.name = title + file_extension
     return file
 
+def new_profile_image_name(file, f_name: str, l_name: str):
+    # Returns a image file with new name set by full name.
+    file_extension = os.path.splitext(file.name)[1]
+    file.name = f_name +'_'+ l_name + file_extension
+    return file
+
 
 def delete_old_path(path: str) -> None:
     # function delete given path of old file from the system. It helps to update the file
