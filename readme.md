@@ -18,10 +18,9 @@ The website environment which is meant for public. This contains the user data.
 - Open terminal in project root directory`.\library>`
 - Run to create migrations: `py manage.py makemigrations`
 - Run to apply the migrations: `py manage.py migrate`
-- Run the website by:
-    - Run Django server: `py manage.py runserver`
-    - Change directory for React server: `.\library> cd frontend`
-    - Run React server: `.\library\frontend> npm start`
+- Run the website by using both server:
+    - Terminal 1: Run Django server: `py manage.py runserver`
+    - Terminal 2: Change directory for React server: `.\library> cd frontend` and Type `npm start`
 
 This is Django With React based project. It is not deploy in server. If you want to add more features and to design it 
 as you desired, it is free to use for the public.
